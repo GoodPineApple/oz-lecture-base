@@ -12,6 +12,10 @@ promise
   .then((result) => {
     // console.log("then 영역");
     // console.log(result);
+    return "??";
+  })
+  .then((result) => {
+    console.log(result);
   })
   .catch((err) => {
     // console.log("catch 영역");

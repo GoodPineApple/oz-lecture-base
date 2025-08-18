@@ -1,3 +1,5 @@
+
+
 // 기본타입
 let num :number = 1;
 let num2 = 2;
@@ -7,6 +9,10 @@ let nullVal :null = null;
 let undefinedVal :undefined = undefined;
 let symbol :symbol = Symbol("hello");
 let bigint :bigint = BigInt(1);
+let numOrString: number | string;
+numOrString = 1;
+numOrString = "hello";
+// numOrString = true; // 'boolean' is not assignable to parameter of type 'number | string'
 
 // 배열
 let array: number[] = [1, 2, 3, 4, 5];
@@ -73,15 +79,38 @@ let numArr: number[] = [];
 numArr.push(3);
 
 const users = [];
-const addUser = (user : {name: string; age: number; isChecked: boolean}): boolean => {
+
+// type UserType = {
+//     name: string;
+//     age: number;
+//     isChecked: boolean;
+// }
+interface IUser {
+    id: number;
+    email: string;
+    password: string; 
+    name?: string;
+    age?: number;
+    profileImage?: string;
+    isChecked?: boolean;
+    createdAt: Date;
+    updatedAt: Date;
+}
+
+const addUser = (user : IUser): boolean => {
     user.isChecked = true;
     users.push(user);
     return true;
 }
-const newUser: {name: string; age: number; isChecked: boolean} = {
+const newUser: IUser = {
+    id: 1,
+    email: "taemin@gmail.com",
+    password: "1234",
     name: "taemin",
     age: 33,
-    isChecked: false
+    isChecked: false,
+    createdAt: new Date(),
+    updatedAt: new Date(),
 } 
 const isCompleted = addUser(newUser);
 

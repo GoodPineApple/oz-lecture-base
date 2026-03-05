@@ -1,148 +1,370 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CSS Float와 Clear 비교</title>
     <style>
+      * {
+        box-sizing: border-box;
+      }
       body {
         font-family: Arial, sans-serif;
         margin: 20px;
+        background-color: #f5f5f5;
+        color: #333;
+      }
+      h1 {
+        text-align: center;
+        margin-bottom: 10px;
+      }
+      .subtitle {
+        text-align: center;
+        color: #777;
+        margin-bottom: 40px;
       }
       .section {
-        margin-bottom: 40px;
+        margin-bottom: 50px;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+      .section-title {
+        font-size: 1.4em;
+        margin-bottom: 5px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #eee;
+      }
+      .section-desc {
+        color: #666;
+        margin-bottom: 20px;
+        line-height: 1.6;
+      }
+      .compare {
+        display: flex;
+        gap: 20px;
+      }
+      .compare-item {
+        flex: 1;
+        border: 2px solid #ddd;
+        border-radius: 6px;
+        overflow: hidden;
+      }
+      .compare-label {
+        padding: 8px 14px;
+        font-weight: bold;
+        font-size: 0.9em;
+        color: #fff;
+      }
+      .label-problem {
+        background-color: #e74c3c;
+      }
+      .label-solution {
+        background-color: #2ecc71;
+      }
+      .label-info {
+        background-color: #3498db;
+      }
+      .demo {
+        padding: 15px;
+        min-height: 160px;
+        background-color: #fafafa;
+      }
+      .container {
+        border: 3px dashed #aaa;
         padding: 10px;
-        border: 1px solid #ddd;
+        background-color: #fff;
       }
       .box {
-        width: 100px;
-        height: 100px;
-        background-color: lightblue;
+        width: 120px;
+        height: 120px;
         color: white;
         text-align: center;
-        line-height: 100px;
-        margin: 10px;
+        line-height: 120px;
+        font-weight: bold;
+        font-size: 0.85em;
+        border-radius: 4px;
       }
-      /* Float Left */
-      .float-left-box {
+      .box-blue {
+        background-color: #3498db;
+      }
+      .box-orange {
+        background-color: #e67e22;
+      }
+      .box-green {
+        background-color: #2ecc71;
+      }
+      .float-left {
         float: left;
+        margin-right: 10px;
+        margin-bottom: 5px;
       }
-      /* Float Right */
-      .float-right-box {
+      .float-right {
         float: right;
+        margin-left: 10px;
+        margin-bottom: 5px;
       }
-      /* Clear */
-      .clear {
+      .clear-both {
         clear: both;
       }
-      /* Clearfix for parent collapse */
       .clearfix::after {
         content: "";
         display: block;
         clear: both;
       }
-      .container {
-        border: 2px solid gray;
-        padding: 10px;
+      .text-content {
+        line-height: 1.6;
+        color: #555;
       }
-      h2 {
-        font-size: 1.2em;
-        margin-bottom: 10px;
+      .next-element {
+        background-color: #ffe0b2;
+        padding: 12px;
+        border: 2px solid #ff9800;
+        border-radius: 4px;
+        margin-top: 10px;
+        font-weight: bold;
+        color: #e65100;
       }
-      p {
-        margin: 10px;
+      .highlight-code {
+        background-color: #f0f0f0;
+        padding: 2px 6px;
+        border-radius: 3px;
+        font-family: monospace;
+        font-size: 0.9em;
+        color: #c0392b;
+      }
+      .code-block {
+        background-color: #2d2d2d;
+        color: #f8f8f2;
+        padding: 12px 16px;
+        border-radius: 4px;
+        font-family: monospace;
+        font-size: 0.85em;
+        line-height: 1.5;
+        margin: 10px 0;
+        white-space: pre;
+      }
+      .code-comment {
+        color: #75715e;
+      }
+      .code-property {
+        color: #66d9ef;
+      }
+      .code-value {
+        color: #a6e22e;
       }
     </style>
   </head>
   <body>
-    <h1>CSS Float와 Clear 비교</h1>
+    <h1>CSS Float와 Clear</h1>
+    <p class="subtitle">
+      float로 생기는 문제와 clear로 해결하는 방법을 비교합니다.
+    </p>
 
-    <!-- Float Left -->
+    <!-- ========== 1. Float 기본 동작 ========== -->
     <div class="section">
-      <h2>Float: Left</h2>
-      <div class="container clearfix">
-        <div class="box float-left-box">Float Left</div>
-        <p>
-          이 텍스트는 Float된 박스를 감싸며 배치됩니다. Float된 요소는 문서
-          흐름에서 부분적으로 제거되어 텍스트나 다른 요소가 주위를 감쌉니다. 이
-          텍스트는 Float된 박스를 감싸며 배치됩니다. Float된 요소는 문서
-          흐름에서 부분적으로 제거되어 텍스트나 다른 요소가 주위를 감쌉니다. 이
-          텍스트는 Float된 박스를 감싸며 배치됩니다. Float된 요소는 문서
-          흐름에서 부분적으로 제거되어 텍스트나 다른 요소가 주위를 감쌉니다. 이
-          텍스트는 Float된 박스를 감싸며 배치됩니다. Float된 요소는 문서
-          흐름에서 부분적으로 제거되어 텍스트나 다른 요소가 주위를 감쌉니다. 이
-          텍스트는 Float된 박스를 감싸며 배치됩니다. Float된 요소는 문서
-          흐름에서 부분적으로 제거되어 텍스트나 다른 요소가 주위를 감쌉니다. 이
-          텍스트는 Float된 박스를 감싸며 배치됩니다. Float된 요소는 문서
-          흐름에서 부분적으로 제거되어 텍스트나 다른 요소가 주위를 감쌉니다. 이
-          텍스트는 Float된 박스를 감싸며 배치됩니다. Float된 요소는 문서
-          흐름에서 부분적으로 제거되어 텍스트나 다른 요소가 주위를 감쌉니다. 이
-          텍스트는 Float된 박스를 감싸며 배치됩니다. Float된 요소는 문서
-          흐름에서 부분적으로 제거되어 텍스트나 다른 요소가 주위를 감쌉니다.
-        </p>
+      <h2 class="section-title">1. Float 기본 동작</h2>
+      <p class="section-desc">
+        <span class="highlight-code">float</span>을 적용하면 요소가 왼쪽 또는
+        오른쪽으로 떠오르고, <strong>주변 텍스트가 감싸는 형태</strong>로
+        배치됩니다.
+      </p>
+      <div class="compare">
+        <div class="compare-item">
+          <div class="compare-label label-info">float: left</div>
+          <div class="demo">
+            <div class="container">
+              <div class="box box-blue float-left">float: left</div>
+              <p class="text-content">
+                텍스트가 float된 박스의 오른쪽을 감싸며 흘러갑니다. float는 원래
+                이미지 주변에 텍스트를 배치하기 위해 만들어진 속성입니다.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="compare-item">
+          <div class="compare-label label-info">float: right</div>
+          <div class="demo">
+            <div class="container">
+              <div class="box box-orange float-right">float: right</div>
+              <p class="text-content">
+                텍스트가 float된 박스의 왼쪽을 감싸며 흘러갑니다. float: right는
+                요소를 오른쪽으로 밀어서 배치합니다.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- Float Right -->
+    <!-- ========== 2. Float의 문제점: 다음 요소가 겹침 ========== -->
     <div class="section">
-      <h2>Float: Right</h2>
-      <div class="container clearfix">
-        <div class="box float-right-box">Float Right</div>
-        <p>
-          이 텍스트는 Float된 박스를 감싸며 배치됩니다. Float된 요소는 문서
-          흐름에서 부분적으로 제거되어 텍스트나 다른 요소가 주위를 감쌉니다. 이
-          텍스트는 Float된 박스를 감싸며 배치됩니다. Float된 요소는 문서
-          흐름에서 부분적으로 제거되어 텍스트나 다른 요소가 주위를 감쌉니다. 이
-          텍스트는 Float된 박스를 감싸며 배치됩니다. Float된 요소는 문서
-          흐름에서 부분적으로 제거되어 텍스트나 다른 요소가 주위를 감쌉니다. 이
-          텍스트는 Float된 박스를 감싸며 배치됩니다. Float된 요소는 문서
-          흐름에서 부분적으로 제거되어 텍스트나 다른 요소가 주위를 감쌉니다. 이
-          텍스트는 Float된 박스를 감싸며 배치됩니다. Float된 요소는 문서
-          흐름에서 부분적으로 제거되어 텍스트나 다른 요소가 주위를 감쌉니다. 이
-          텍스트는 Float된 박스를 감싸며 배치됩니다. Float된 요소는 문서
-          흐름에서 부분적으로 제거되어 텍스트나 다른 요소가 주위를 감쌉니다. 이
-          텍스트는 Float된 박스를 감싸며 배치됩니다. Float된 요소는 문서
-          흐름에서 부분적으로 제거되어 텍스트나 다른 요소가 주위를 감쌉니다. 이
-          텍스트는 Float된 박스를 감싸며 배치됩니다. Float된 요소는 문서
-          흐름에서 부분적으로 제거되어 텍스트나 다른 요소가 주위를 감쌉니다.
-        </p>
+      <h2 class="section-title">2. Float의 문제 - 다음 요소가 겹침</h2>
+      <p class="section-desc">
+        float된 요소 다음에 오는 블록 요소는 float를 무시하고 겹쳐서 배치됩니다.
+        <span class="highlight-code">clear</span>를 사용하면 이 문제를 해결할 수
+        있습니다.
+      </p>
+      <div class="compare">
+        <!-- 문제 상황 -->
+        <div class="compare-item">
+          <div class="compare-label label-problem">
+            clear 없음 - 다음 요소가 겹침
+          </div>
+          <div class="demo">
+            <div class="container">
+              <div class="box box-blue float-left">float: left</div>
+              <div class="next-element">
+                다음 블록 요소 (clear 없음) - float 박스 뒤로 들어가 겹칩니다!
+              </div>
+            </div>
+            <div class="code-block">
+              <span class="code-comment">/* 다음 요소에 clear 없음 */</span>
+              <span class="code-property">.next</span> {
+              <span class="code-comment">/* clear 속성 없음 */</span>
+              }
+            </div>
+          </div>
+        </div>
+        <!-- 해결 -->
+        <div class="compare-item">
+          <div class="compare-label label-solution">
+            clear: both 적용 - 겹침 해결
+          </div>
+          <div class="demo">
+            <div class="container">
+              <div class="box box-blue float-left">float: left</div>
+              <div class="next-element clear-both">
+                다음 블록 요소 (clear: both) - float 박스 아래로 내려갑니다!
+              </div>
+            </div>
+            <div class="code-block">
+              <span class="code-comment">/* 다음 요소에 clear 적용 */</span>
+              <span class="code-property">.next</span> {
+              <span class="code-value">clear: both;</span>
+              }
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- Clear -->
+    <!-- ========== 3. Float의 문제점: 부모 높이 붕괴 ========== -->
     <div class="section">
-      <h2>Clear 적용</h2>
-      <div class="container clearfix">
-        <div class="box float-left-box">Float Left</div>
-        <p class="clear">
-          이 텍스트는 Float된 박스를 감싸며 배치됩니다. Float된 요소는 문서
-          흐름에서 부분적으로 제거되어 텍스트나 다른 요소가 주위를 감쌉니다. 이
-          텍스트는 Float된 박스를 감싸며 배치됩니다. Float된 요소는 문서
-          흐름에서 부분적으로 제거되어 텍스트나 다른 요소가 주위를 감쌉니다. 이
-          텍스트는 Float된 박스를 감싸며 배치됩니다. Float된 요소는 문서
-          흐름에서 부분적으로 제거되어 텍스트나 다른 요소가 주위를 감쌉니다. 이
-          텍스트는 Float된 박스를 감싸며 배치됩니다. Float된 요소는 문서
-          흐름에서 부분적으로 제거되어 텍스트나 다른 요소가 주위를 감쌉니다. 이
-          텍스트는 Float된 박스를 감싸며 배치됩니다. Float된 요소는 문서
-          흐름에서 부분적으로 제거되어 텍스트나 다른 요소가 주위를 감쌉니다. 이
-          텍스트는 Float된 박스를 감싸며 배치됩니다. Float된 요소는 문서
-          흐름에서 부분적으로 제거되어 텍스트나 다른 요소가 주위를 감쌉니다. 이
-          텍스트는 Float된 박스를 감싸며 배치됩니다. Float된 요소는 문서
-          흐름에서 부분적으로 제거되어 텍스트나 다른 요소가 주위를 감쌉니다. 이
-          텍스트는 Float된 박스를 감싸며 배치됩니다. Float된 요소는 문서
-          흐름에서 부분적으로 제거되어 텍스트나 다른 요소가 주위를 감쌉니다.
-        </p>
+      <h2 class="section-title">3. Float의 문제 - 부모 요소의 높이 붕괴</h2>
+      <p class="section-desc">
+        자식 요소가 모두 float되면 부모는 자식의 높이를 인식하지 못해
+        <strong>높이가 0</strong>이 됩니다. 점선 테두리가 부모
+        <span class="highlight-code">.container</span>입니다.
+        <span class="highlight-code">clearfix</span> 패턴으로 해결합니다.
+      </p>
+      <div class="compare">
+        <!-- 문제 상황 -->
+        <div class="compare-item">
+          <div class="compare-label label-problem">
+            clearfix 없음 - 부모 높이 붕괴
+          </div>
+          <div class="demo">
+            <div class="container">
+              <div class="box box-blue float-left">Box 1</div>
+              <div class="box box-orange float-left">Box 2</div>
+              <div class="box box-green float-left">Box 3</div>
+            </div>
+            <div class="next-element">
+              부모 밖의 요소 - 부모 높이가 0이라 바로 위에 붙습니다!
+            </div>
+            <div class="code-block">
+              <span class="code-comment">/* 부모에 clearfix 없음 */</span>
+              <span class="code-property">.container</span> {
+              <span class="code-comment">/* 자식이 모두 float → 높이 0 */</span>
+              }
+            </div>
+          </div>
+        </div>
+        <!-- 해결 -->
+        <div class="compare-item">
+          <div class="compare-label label-solution">
+            clearfix 적용 - 부모가 높이를 인식
+          </div>
+          <div class="demo">
+            <div class="container clearfix">
+              <div class="box box-blue float-left">Box 1</div>
+              <div class="box box-orange float-left">Box 2</div>
+              <div class="box box-green float-left">Box 3</div>
+            </div>
+            <div class="next-element">
+              부모 밖의 요소 - 부모가 자식 높이를 정상적으로 감쌉니다!
+            </div>
+            <div class="code-block">
+              <span class="code-comment">/* clearfix 패턴 */</span>
+              <span class="code-property">.container::after</span> {
+              <span class="code-value">content: "";</span>
+              <span class="code-value">display: block;</span>
+              <span class="code-value">clear: both;</span>
+              }
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- Without Clearfix (Parent Collapse Example) -->
+    <!-- ========== 4. 실전 활용: Float 레이아웃 ========== -->
     <div class="section">
-      <h2>Clearfix 없는 경우 (높이 붕괴)</h2>
-      <div class="container">
-        <div class="box float-left-box">Float Left</div>
-        <p>이 컨테이너는 Float으로 인해 높이가 붕괴합니다.</p>
+      <h2 class="section-title">4. 실전 활용 - Float으로 가로 배치</h2>
+      <p class="section-desc">
+        float를 활용하면 블록 요소를 가로로 배치할 수 있습니다. 단, 반드시
+        <span class="highlight-code">clearfix</span>를 함께 사용해야 레이아웃이
+        깨지지 않습니다.
+      </p>
+      <div class="compare">
+        <div class="compare-item">
+          <div class="compare-label label-problem">clearfix 없이 가로 배치</div>
+          <div class="demo">
+            <div class="container" style="margin-bottom: 10px">
+              <div
+                class="box box-blue float-left"
+                style="width: 30%; height: 60px; line-height: 60px"
+              >
+                사이드바
+              </div>
+              <div
+                class="box box-orange float-left"
+                style="width: 60%; height: 60px; line-height: 60px"
+              >
+                메인 콘텐츠
+              </div>
+            </div>
+            <div class="next-element">
+              푸터 - 컨테이너가 붕괴되어 레이아웃이 깨집니다!
+            </div>
+          </div>
+        </div>
+        <div class="compare-item">
+          <div class="compare-label label-solution">
+            clearfix와 함께 가로 배치
+          </div>
+          <div class="demo">
+            <div class="container clearfix" style="margin-bottom: 10px">
+              <div
+                class="box box-blue float-left"
+                style="width: 30%; height: 60px; line-height: 60px"
+              >
+                사이드바
+              </div>
+              <div
+                class="box box-orange float-left"
+                style="width: 60%; height: 60px; line-height: 60px"
+              >
+                메인 콘텐츠
+              </div>
+            </div>
+            <div class="next-element">
+              푸터 - clearfix 덕분에 정상 배치됩니다!
+            </div>
+          </div>
+        </div>
       </div>
-      <p>컨테이너 외부의 텍스트입니다.</p>
     </div>
   </body>
 </html>

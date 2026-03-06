@@ -1,4 +1,3 @@
-```markdown
 # ✅ Git 기본 문법 정리 
 
 ## ① Git 초기 설정 (한 번만 실행)
@@ -87,5 +86,3 @@ git branch -d 브랜치명      # 브랜치 삭제
 git add . && git commit -m "설명" && git push
 ```
 
----
-```
